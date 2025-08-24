@@ -1,0 +1,115 @@
+export const banks = [
+  // Mobile Money
+  {
+    id: 1,
+    name: "zaad",
+    display: "ZAAD",
+    img: require("../images/zaad.png"),
+    service: "waafi",
+    method: "mobile_money",
+    width: 150,
+    height: 70,
+  },
+  {
+    id: 2,
+    name: "evc",
+    display: "EVC",
+    img: require("../images/evc.png"),
+    service: "waafi",
+    method: "mobile_money",
+    width: 150,
+    height: 70,
+  },
+  {
+    id: 3,
+    name: "e-dahab",
+    display: "E-Dahab",
+    img: require("../images/edahab.png"),
+    service: "edahab",
+    method: "mobile_money",
+    width: 150,
+    height: 70,
+  },
+  {
+    id: 4,
+    name: "sahal",
+    display: "Sahal",
+    img: require("../images/sahal.png"),
+    service: "waafi",
+    method: "mobile_money",
+    width: 150,
+    height: 70,
+  },
+
+  // Banks
+  {
+    id: 6,
+    name: "dahabshiil bank",
+    display: "Dahabshiil Bank",
+    img: require("../images/dahabshiil3.png"),
+    service: "Bank",
+    method: "bank",
+    width: 150,
+    height: 80,
+  },
+  {
+    id: 7,
+    name: "dara salaam bank",
+    display: "Dara Salaam Bank",
+    img: require("../images/darasalaam2.png"),
+    service: "Bank",
+    method: "bank",
+    width: 120,
+    height: 80,
+  },
+  {
+    id: 9,
+    name: "salaam bank",
+    display: "Salaam Bank",
+    img: require("../images/salaam_bank.png"),
+    service: "Bank",
+    method: "bank",
+    width: 110,
+    height: 80,
+  },
+  {
+    id: 10,
+    name: "salaam somali bank",
+    display: "Salaam Somali Bank",
+    img: require("../images/salaam_somali_bank.png"),
+    service: "Bank",
+    method: "bank",
+    width: 150,
+    height: 80,
+  },
+
+  // International Cards
+  {
+    id: 11,
+    name: "paystack",
+    display: "Paystack",
+    img: require("../images/paystack.png"),
+    service: "paystack",
+    method: "card",
+    width: 150,
+    height: 120,
+  },
+];
+
+export const paymentMethods = [
+  {
+    id: "mobile_money",
+    name: "Mobile Money",
+    description: "Pay with mobile wallet",
+  },
+  {
+    id: "bank",
+    name: "Bank Transfer",
+    description: "Transfer via bank account",
+  },
+  {
+    id: "card",
+    name: "Credit/Debit Card",
+    description: "Pay with credit or debit card",
+  },
+];

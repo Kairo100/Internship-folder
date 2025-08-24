@@ -1,0 +1,44 @@
+.custom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 25px;
+  background-color: #ffffff;
+  border-bottom: 1px solid #ddd;
+  position: fixed;
+  top: 0;
+  z-index: 999;
+width: calc(100% - 200px);
+
+}
+
+.header-left .user-name {
+    margin-left: 50px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+  
+}
+
+.header-right .profile-icon {
+  font-size: 26px;
+  color: #2d142e;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .custom-header {
+    padding: 12px 15px;
+    width: 100%;
+ 
+
+  }
+
+  .header-left .user-name {
+    font-size: 16px;
+  }
+
+  .header-right .profile-icon {
+    font-size: 22px;
+  }
+}

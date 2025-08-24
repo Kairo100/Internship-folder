@@ -1,0 +1,191 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1050;
+  padding: 1rem;
+}
+
+.bank-steps-modal {
+  background: white;
+  border-radius: 0.75rem;
+  max-width: 500px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 1.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+  margin-bottom: 1rem;
+}
+
+.modal-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #999;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #333;
+}
+
+.modal-body {
+  padding: 0 1.5rem 1.5rem;
+}
+
+.step-header {
+  background-color: rgb(34, 121, 232);
+  padding: 0.4rem;
+  border-radius: 0.3rem;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.step-content {
+  font-size: 1.1rem;
+  color: #525254;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.required-star {
+  color: red;
+  font-weight: bold;
+  font-size: 1.4rem;
+}
+
+.highlight {
+  color: rgb(34, 121, 232);
+  font-weight: bold;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.step-image-container {
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.step-image {
+  max-width: 220px;
+  max-height: 400px;
+  width: auto;
+  height: auto;
+  border-radius: 0.4rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.step-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.step-buttons .step-btn:only-child {
+  margin-left: auto;
+}
+
+.step-btn {
+  border: 0;
+  background: linear-gradient(180deg, #fdb933, #f99a32);
+  color: #302c51;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+  padding: 0.7rem 1.5rem;
+  min-width: 5rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.step-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.step-btn:active {
+  transform: translateY(0);
+}
+
+.back-btn {
+  background: linear-gradient(180deg, #6c757d, #5a6268);
+  color: white;
+}
+
+.next-btn {
+  background: linear-gradient(180deg, #fdb933, #f99a32);
+  color: #302c51;
+}
+
+.done-btn {
+  background: linear-gradient(180deg, #28a745, #20963e);
+  color: white;
+}
+
+/* Mobile responsive */
+@media (max-width: 576px) {
+  .modal-overlay {
+    padding: 0.5rem;
+  }
+
+  .bank-steps-modal {
+    max-height: 95vh;
+  }
+
+  .modal-header {
+    padding: 1rem 1rem 0;
+  }
+
+  .modal-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .modal-body {
+    padding: 0 1rem 1rem;
+  }
+
+  .step-content {
+    font-size: 1rem;
+  }
+
+  .step-image {
+    max-width: 180px;
+    max-height: 320px;
+  }
+
+  .step-btn {
+    padding: 0.6rem 1rem;
+    font-size: 0.8rem;
+    min-width: 4rem;
+  }
+}

@@ -1,0 +1,443 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlserver"
+  url      = env("DATABASE_URL")
+}
+
+model MigrationHistory {
+  MigrationId    String @db.NVarChar(150)
+  ContextKey     String @db.NVarChar(300)
+  Model          Bytes
+  ProductVersion String @db.NVarChar(32)
+
+  @@id([MigrationId, ContextKey], map: "PK_dbo.__MigrationHistory")
+  @@map("__MigrationHistory")
+}
+
+model Contact_data {
+  id             Int       @id(map: "PK_dbo.Contact_data") @default(autoincrement())
+  name           String?   @db.NVarChar(50)
+  contact_reason String?   @db.NVarChar(50)
+  email_address  String?   @db.NVarChar(50)
+  subject        String?   @db.NVarChar(100)
+  message        String?   @db.Text
+  added_on       DateTime? @db.Date
+  added_by       String?   @db.NVarChar(Max)
+  entity_id      Int?      @default(0, map: "DF_Contact_data_entity_id")
+}
+
+model Districts {
+  id        Int     @id(map: "PK_dbo.Districts") @default(autoincrement())
+  region_id Int
+  name      String? @db.NVarChar(Max)
+}
+
+model Entities {
+  id          Int     @id(map: "PK_dbo.Entities") @default(autoincrement())
+  entity_name String? @db.NVarChar(Max)
+}
+
+model Expenses {
+  expense_id      Int       @id(map: "PK_dbo.Expenses") @default(autoincrement())
+  project_id      Int?
+  payee_name      String?   @db.VarChar(250)
+  description     String?   @db.VarChar(250)
+  amount          Float?    @db.Money
+  date            DateTime? @db.Date
+  verified        String?   @db.VarChar(50)
+  added_by        String?   @db.VarChar(50)
+  date_time_added DateTime? @db.DateTime
+}
+
+model In_kind_donation_types {
+  Id                  Int       @id(map: "PK_dbo.In_kind_donation_types") @default(autoincrement())
+  type_name           String    @db.NVarChar(Max)
+  category            String    @db.NVarChar(Max)
+  unit_of_measurement Int
+  rate_per_unit       Float     @db.Money
+  added_by            String?   @db.NVarChar(Max)
+  added_on            DateTime? @db.Date
+}
+
+model In_kind_donations {
+  id                      Int       @id(map: "PK_dbo.In_kind_donations") @default(autoincrement())
+  project_id              Int
+  donated_by              String?   @db.NVarChar(100)
+  mobile_number           String?   @db.NVarChar(50)
+  inkind_type             Int
+  quantity_donated        String?   @db.NVarChar(50)
+  total_amount            Decimal   @db.Decimal(18, 2)
+  added_by                String?   @db.NVarChar(50)
+  added_on                DateTime? @db.Date
+  project_organisation_id Int       @default(0, map: "DF__In_kind_d__proje__1EA48E88")
+}
+
+model Organisation_members {
+  member_id                 Int       @id(map: "PK_dbo.Organisation_members") @default(autoincrement())
+  organisation_id           Int?
+  full_name                 String?   @db.VarChar(150)
+  email_address             String?   @db.VarChar(50)
+  telephone_number          String?   @db.VarChar(50)
+  position_held             String?   @db.VarChar(50)
+  email_verification_string String?   @db.VarChar(50)
+  email_verified            Boolean?
+  password                  String?   @db.VarChar(150)
+  date_time_added           DateTime? @db.DateTime
+  added_by                  String?   @db.NVarChar(50)
+}
+
+model Organisations {
+  organisation_id   Int       @id(map: "PK_dbo.Organisations") @default(autoincrement())
+  account_status    String?   @db.VarChar(50)
+  organisation_name String?   @db.VarChar(150)
+  organisation_logo Bytes?    @db.Image
+  organisation_bio  String?   @db.Text
+  phone_number      String?   @db.VarChar(50)
+  email_address     String?   @db.VarChar(50)
+  website_address   String?   @db.VarChar(50)
+  facebook_page     String?   @db.VarChar(50)
+  twitter_page      String?   @db.VarChar(50)
+  linkedIn_page     String?   @db.VarChar(50)
+  pinterest_page    String?   @db.VarChar(50)
+  address           String?   @db.VarChar(150)
+  post_zip_code     String?   @db.VarChar(50)
+  country           String?   @db.VarChar(50)
+  date_time_added   DateTime? @db.DateTime
+  added_by          String?   @db.VarChar(50)
+  entity_id         Int?
+}
+
+model paystack_transaction {
+  id         Int       @id(map: "PK__paystack__3213E83FF781C14B") @default(autoincrement())
+  project_id Int?
+  reference  String?   @db.UniqueIdentifier
+  amount     Decimal?  @db.Decimal(18, 2)
+  email      String?   @db.NVarChar(255)
+  status     String?   @default("pending", map: "DF__paystack___statu__56E8E7AB") @db.NVarChar(20)
+  created_at DateTime? @default(now(), map: "DF__paystack___creat__57DD0BE4") @db.DateTime
+  updated_at DateTime? @db.DateTime
+  currency   String?   @default("USD", map: "DF__paystack___curre__58D1301D") @db.VarChar(100)
+}
+
+model Project_accounts {
+  bankId          String?   @db.VarChar(50)
+  project_Id      Int?
+  date_time_added DateTime? @db.DateTime
+  added_by        String?   @db.VarChar(50)
+  AccNo           String    @id(map: "PK_dbo.Project_accounts") @default("", map: "DF__Project_a__AccNo__1F98B2C1") @db.VarChar(50)
+  Projects        Projects? @relation(fields: [project_Id], references: [project_id], onDelete: Cascade, onUpdate: NoAction, map: "FK_dbo.Project_accounts_dbo.Projects_project_Id")
+}
+
+model Project_categories {
+  Id                      Int     @id(map: "PK_dbo.Project_categories") @default(autoincrement())
+  category_name           String? @db.VarChar(50)
+  category_title_for_page String? @db.VarChar(100)
+  category_description    String? @db.VarChar(200)
+}
+
+model Project_committee {
+  committee_id            Int       @id(map: "PK_dbo.Project_committee") @default(autoincrement())
+  committee_name          String?   @db.VarChar(50)
+  committee_mobile_number String?   @db.VarChar(50)
+  project_id              Int?
+  added_by                String?   @db.NVarChar(50)
+  date_time_added         DateTime? @db.DateTime
+  position_held           String?   @db.NVarChar(50)
+  Projects                Projects? @relation(fields: [project_id], references: [project_id], onDelete: Cascade, onUpdate: NoAction, map: "FK_dbo.Project_committee_dbo.Projects_project_id")
+}
+
+model project_images {
+  project_id   Int     @id(map: "PK__project___BC799E1F020DCB55")
+  image_name_1 String? @db.NVarChar(255)
+  image_name_2 String? @db.NVarChar(255)
+  image_name_3 String? @db.NVarChar(255)
+  url_1        String? @db.NVarChar(255)
+  url_2        String? @db.NVarChar(255)
+  url_3        String? @db.NVarChar(255)
+}
+
+model Project_keys {
+  id                Int       @id(map: "PK_dbo.Project_keys") @default(autoincrement())
+  apiKey            String?   @db.NVarChar(Max)
+  apiSecret         String?   @db.NVarChar(Max)
+  merchantShortCode String?   @db.NVarChar(Max)
+  merchantLongCode  String?   @db.NVarChar(Max)
+  added_by          String?   @db.NVarChar(Max)
+  added_on          DateTime? @default(now(), map: "DF_Project_keys_added_on") @db.DateTime
+  project_id        Int       @default(0, map: "DF__Project_k__proje__208CD6FA")
+}
+
+model Project_leads {
+  id            Int       @id(map: "PK_dbo.Project_leads") @default(autoincrement())
+  name          String?   @db.NVarChar(100)
+  mobile_number String?   @db.NVarChar(50)
+  method        String?   @db.NVarChar(100)
+  email         String?   @db.NVarChar(100)
+  project_id    Int
+  added_on      DateTime? @db.DateTime
+  amount        Decimal   @default(0, map: "DF__Project_l__amoun__2180FB33") @db.Decimal(18, 2)
+}
+
+model Project_reviews {
+  review_id      Int       @id(map: "PK_dbo.Project_reviews") @default(autoincrement())
+  reviewer_name  String?   @db.NVarChar(50)
+  reviewer_email String?   @db.NVarChar(50)
+  review_comment String?   @db.NVarChar(500)
+  added_on       DateTime? @db.Date
+  project_id     Int       @default(0, map: "DF__Project_r__proje__22751F6C")
+  Projects       Projects  @relation(fields: [project_id], references: [project_id], onDelete: Cascade, onUpdate: NoAction, map: "FK_dbo.Project_reviews_dbo.Projects_project_id")
+}
+
+model Project_updates {
+  update_id       Int       @id(map: "PK_dbo.Project_updates") @default(autoincrement())
+  project_id      Int?
+  update_title    String?   @db.VarChar(250)
+  description     String?   @db.Text
+  approved        Boolean?  @default(false, map: "DF_Project_updates_approved")
+  added_by        String?   @db.VarChar(50)
+  date_time_added DateTime? @default(now(), map: "DF_Project_updates_date_time_added") @db.DateTime
+  picture         Bytes?    @db.Image
+  picture_url     String?   @db.NVarChar(150)
+  type            String?   @default("N'undefined'", map: "DF_Project_updates_type") @db.NVarChar(50)
+  Projects        Projects? @relation(fields: [project_id], references: [project_id], onDelete: Cascade, onUpdate: NoAction, map: "FK_dbo.Project_updates_dbo.Projects_project_id")
+}
+
+model ProjecteDahab_invoices {
+  invoice_id     Int?      @default(0, map: "DF_ProjecteDahab_invoices_invoice_id")
+  project_id     Int
+  amount         Decimal?  @db.Decimal(18, 2)
+  added_on       DateTime? @db.DateTime
+  donated_by     String?   @db.NVarChar(Max)
+  status         String?   @db.NVarChar(Max)
+  id             Int       @id(map: "PK_dbo.ProjecteDahab_invoices") @default(autoincrement())
+  edahab_account String?   @db.NVarChar(100)
+  invoiceGuid    String?   @db.NVarChar(Max)
+}
+
+model Projects {
+  project_id                Int                 @id(map: "PK_dbo.Projects") @default(autoincrement())
+  title                     String?             @db.VarChar(250)
+  subtitle                  String?             @db.Text
+  description               String?             @db.Text
+  category                  String?             @db.VarChar(50)
+  tags                      String?             @db.VarChar(50)
+  video                     String?             @db.VarChar(200)
+  start_date                DateTime?           @db.Date
+  end_date                  DateTime?           @db.Date
+  recommended_amount        Decimal?            @db.Decimal(18, 2)
+  funding_goal              Float?              @db.Money
+  available_grant           Float?              @db.Money
+  end_method                String?             @db.VarChar(50)
+  community_name            String?             @db.VarChar(50)
+  country_region            String?             @db.VarChar(50)
+  location_district         String?             @db.VarChar(50)
+  village                   String?             @db.VarChar(50)
+  implementation_start_date DateTime?           @db.Date
+  implementation_end_date   DateTime?           @db.Date
+  organisation_id           Int?
+  added_by                  String?             @db.VarChar(50)
+  date_time_added           DateTime?           @db.DateTime
+  entity_id                 Int?
+  story                     String?             @db.Text
+  picture_1                 Bytes?              @db.Image
+  picture_2                 Bytes?              @db.Image
+  picture_3                 Bytes?              @db.Image
+  latitude                  String?             @db.NVarChar(50)
+  longitude                 String?             @db.NVarChar(50)
+  status                    String?             @db.NVarChar(50)
+  project_value             Decimal?            @default(0, map: "DF_Projects_project_value") @db.Decimal(18, 2)
+  Project_accounts          Project_accounts[]
+  Project_committee         Project_committee[]
+  Project_reviews           Project_reviews[]
+  Project_updates           Project_updates[]
+}
+
+model Receipts {
+  TranDate     String? @db.NVarChar(50)
+  TranNo       String  @db.NVarChar(50)
+  AccNo        String? @db.VarChar(50)
+  CustomerName String? @db.NVarChar(200)
+  TranAmt      Decimal @db.Decimal(18, 2)
+  Narration    String? @db.NVarChar(200)
+  TranType     String? @db.NVarChar(50)
+  DrCr         String? @db.NVarChar(50)
+  UTI          String? @db.NVarChar(50)
+  CurrencyCode String? @db.NVarChar(50)
+  ChargeAmount String? @db.NVarChar(50)
+  UserID       String? @db.NVarChar(50)
+  Printed      String? @db.NVarChar(50)
+  Category     String? @db.NVarChar(50)
+  id           Int     @id(map: "Receipts_PK") @default(autoincrement())
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Receipts_2024_Backup {
+  TranDate     String? @db.NVarChar(50)
+  TranNo       String  @db.NVarChar(50)
+  AccNo        String? @db.VarChar(50)
+  CustomerName String? @db.NVarChar(200)
+  TranAmt      Decimal @db.Decimal(18, 2)
+  Narration    String? @db.NVarChar(200)
+  TranType     String? @db.NVarChar(50)
+  DrCr         String? @db.NVarChar(50)
+  UTI          String? @db.NVarChar(50)
+  CurrencyCode String? @db.NVarChar(50)
+  ChargeAmount String? @db.NVarChar(50)
+  UserID       String? @db.NVarChar(50)
+  Printed      String? @db.NVarChar(50)
+  Category     String? @db.NVarChar(50)
+  id           Int     @default(autoincrement())
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Receipts_Backup {
+  TranDate     String? @db.NVarChar(50)
+  TranNo       String  @db.NVarChar(50)
+  AccNo        String? @db.VarChar(50)
+  CustomerName String? @db.NVarChar(200)
+  TranAmt      Decimal @db.Decimal(18, 2)
+  Narration    String? @db.NVarChar(200)
+  TranType     String? @db.NVarChar(50)
+  DrCr         String? @db.NVarChar(50)
+  UTI          String? @db.NVarChar(50)
+  CurrencyCode String? @db.NVarChar(50)
+  ChargeAmount String? @db.NVarChar(50)
+  UserID       String? @db.NVarChar(50)
+  Printed      String? @db.NVarChar(50)
+  Category     String? @db.NVarChar(50)
+  id           Int
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model Receipts_Copy {
+  TranDate     String?  @db.VarChar(50)
+  TranNo       String?  @db.VarChar(50)
+  AccNo        String?  @db.VarChar(20)
+  CustomerName String?  @db.VarChar(200)
+  TranAmt      Decimal? @db.Decimal(14, 2)
+  Narration    String?  @db.VarChar(200)
+  TranType     String?  @db.VarChar(20)
+  DrCr         String?  @db.VarChar(20)
+  UTI          String?  @db.VarChar(50)
+  CurrencyCode String?  @db.VarChar(10)
+  ChargeAmount String?  @db.VarChar(20)
+  UserID       String?  @db.VarChar(50)
+  Printed      String?  @db.VarChar(1)
+
+  @@ignore
+}
+
+model ReceiptsArchive {
+  TranDate     String? @db.NVarChar(50)
+  TranNo       String  @id(map: "PK_dbo.ReceiptsArchive") @db.NVarChar(50)
+  AccNo        String? @db.NVarChar(50)
+  CustomerName String? @db.NVarChar(100)
+  TranAmt      Decimal @db.Decimal(18, 2)
+  Narration    String? @db.NVarChar(100)
+  TranType     String? @db.NVarChar(50)
+  DrCr         String? @db.NVarChar(50)
+  UTI          String? @db.NVarChar(50)
+  CurrencyCode String? @db.NVarChar(50)
+  ChargeAmount String? @db.NVarChar(50)
+  UserID       String? @db.NVarChar(50)
+  Printed      String? @db.NVarChar(50)
+}
+
+model Regions {
+  id   Int     @id(map: "PK_dbo.Regions") @default(autoincrement())
+  name String? @db.NVarChar(Max)
+}
+
+model system_exceptions {
+  Id         Int      @id(map: "PK_dbo.system_exceptions") @default(autoincrement())
+  ErrorType  String?  @db.NVarChar(Max)
+  Source     String?  @db.NVarChar(Max)
+  StackTrace String?  @db.NVarChar(Max)
+  Message    String?  @db.NVarChar(Max)
+  User       String?  @db.NVarChar(Max)
+  Date       DateTime
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblProjectDocument {
+  ID         BigInt  @default(autoincrement())
+  Folder     String? @db.VarChar(150)
+  FileName   String? @db.VarChar(150)
+  FileSize   BigInt?
+  Document   Bytes?
+  FolderType String? @db.VarChar(100)
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblProjectTenderFile {
+  FileID    BigInt    @default(autoincrement())
+  CreatedOn DateTime? @default(dbgenerated("left(getdate(),(11))"), map: "DF__tblProjec__Creat__282DF8C2") @db.Date
+  FileName  String?   @db.VarChar(150)
+  ProjectID BigInt?
+  Document  Bytes?
+  Status    String?   @default("ACTIVE", map: "DF__tblProjec__Statu__29221CFB") @db.VarChar(100)
+  FileSize  BigInt?
+
+  @@ignore
+}
+
+/// The underlying table does not contain a valid unique identifier and can therefore currently not be handled by Prisma Client.
+model tblTenderSubmission {
+  TenderSubmissionID BigInt    @default(autoincrement())
+  Username           String?   @db.VarChar(100)
+  Document           Bytes?    @db.Image
+  SubmissionDate     DateTime? @default(now(), map: "DF__tblTender__Submi__2A164134") @db.Date
+  Status             String?   @default("Sent", map: "DF__tblTender__Statu__2B0A656D") @db.VarChar(100)
+  ProjectName        String?   @db.VarChar(150)
+
+  @@ignore
+}
+
+model Units_of_measurement {
+  id   Int     @id(map: "PK_dbo.Units_of_measurement") @default(autoincrement())
+  name String? @db.NVarChar(50)
+}
+
+model Uploaded_images {
+  entry_id            Int       @id(map: "PK_dbo.Uploaded_images") @default(autoincrement())
+  project_id          Int?
+  original_image_name String?   @db.VarChar(250)
+  image               Bytes?    @db.Image
+  date_time_added     DateTime? @db.DateTime
+  added_by            String?   @db.VarChar(50)
+}
+
+model User_accounts {
+  user_id           String    @id(map: "PK_dbo.User_accounts") @db.VarChar(50)
+  first_name        String?   @db.VarChar(50)
+  last_name         String?   @db.VarChar(50)
+  email_address     String?   @db.VarChar(50)
+  password          String?   @db.VarChar(150)
+  email_verified    Boolean?
+  date_time_added   DateTime? @db.DateTime
+  added_by          String?   @db.VarChar(50)
+  account_type      String?   @db.NVarChar(50)
+  title             String?   @db.NVarChar(50)
+  User_organisation String?   @db.NVarChar(Max)
+}
+
+model user_event_logs {
+  Id             Int      @id(map: "PK_dbo.user_event_logs") @default(autoincrement())
+  Username       String?  @db.NVarChar(Max)
+  LoggedInTime   DateTime
+  LoggedInStatus String?  @db.NVarChar(Max)
+  UserCountry    String?  @db.NVarChar(Max)
+  UserAgent      String?  @db.NVarChar(Max)
+  UserBranch     String?  @db.NVarChar(Max)
+  UserIpAddress  String?  @db.NVarChar(Max)
+  UserType       String?  @db.NVarChar(Max)
+}

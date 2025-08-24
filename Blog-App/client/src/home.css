@@ -1,0 +1,88 @@
+.welcome-title {
+    font-size: 3em; /* Larger font size */
+    color: #537d5d; /* Title color */
+    animation: fadeIn 2s; /* Animation for fade-in effect */
+}
+
+.welcome-subtitle {
+    font-size: 1.5em; /* Font size for subtitle */
+    color: #555; /* Subtitle color */
+    margin: 10px 0; /* Margin for spacing */
+    animation: slideIn 2s; /* Animation for slide-in effect */
+}
+.home-container {
+  padding: 20px; /* Padding around the container */
+  text-align: center; /* Center text */
+}
+
+.get-started-button {
+  background-color: #537d5d; /* Button color */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Remove border */
+  border-radius: 5px; /* Rounded corners */
+  font-size: 1.2em; /* Font size */
+  cursor: pointer; /* Pointer on hover */
+  transition: background-color 0.3s ease; /* Transition for hover effect */
+  margin-bottom: 20px; /* Space below button */
+}
+
+.get-started-button:hover {
+ background-color: #346b41; /* Darker green on hover */
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap; /* Allow wrapping for responsive layout */
+  justify-content: space-between; /* Space between posts */
+  max-width: 1200px; /* Maximum width for the container */
+  margin: 0 auto; /* Center the container */
+}
+
+.post {
+  background-color: #537d5d; /* Background color for posts */
+  border-radius: 10px; /* Rounded corners */
+  margin: 15px; /* Margin around each post */
+  padding: 10px; /* Padding inside each post */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow effect */
+  display: inline-flex;
+  flex-direction: column; /* Stack content vertically */
+  align-items: center; /* Center the content */
+  width: calc(33.333% - 30px); /* Three posts in a row on laptop screens */
+  text-decoration: none;
+}
+
+.post img {
+  max-width: 100%; /* Responsive images */
+  height: 300px; /* Maintain aspect ratio */
+  border-radius: 4px; /* Rounded corners for images */
+}
+
+.post-text {
+  text-align: center; /* Center text */
+  margin-top: 10px; /* Space above text */
+}
+
+.post-text h3 {
+  font-size: 1.5em; /* Font size for titles */
+  margin: 10px 0; /* Margin around title */
+  color: white; /* White text color */
+}
+
+.post-text p {
+  font-size: 1em; /* Font size for description */
+  color: #fff; /* White color for description */
+}
+
+/* Responsive layout adjustments */
+@media (max-width: 900px) {
+  .post {
+    width: calc(50% - 30px); /* Two posts in a row on smaller screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .post {
+    width: calc(100% - 30px); /* One post in a row on mobile screens */
+  }
+}

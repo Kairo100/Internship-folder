@@ -1,0 +1,112 @@
+.journal-edit-container {
+  width: calc(100% - 200px);
+  margin:0;
+  padding: 25px 20px;
+  background: #fefefe;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  background-color: #2d142e;
+}
+
+.page-titl {
+  font-size: 2rem;
+  font-weight: 700;
+color: white !important;
+  text-align: center;
+  margin-bottom: 30px;
+  user-select: none;
+}
+
+.loading-text {
+  font-size: 1.1rem;
+  color: #666;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.error-msg {
+  color: #e63946;
+  font-weight: 600;
+  margin-bottom: 20px;
+  text-align: center;
+  user-select: none;
+}
+
+/* Form */
+.journal-edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.input-label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  color: white;
+  user-select: none;
+}
+
+.text-input,
+.textarea-input {
+  font-size: 1rem;
+  padding: 10px 14px;
+  border: 1.5px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.2s ease;
+  font-family: inherit;
+  resize: vertical;
+  color: #222;
+}
+
+.text-input::placeholder,
+.textarea-input::placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.text-input:focus,
+.textarea-input:focus {
+  border-color: #3a86ff;
+  outline: none;
+  box-shadow: 0 0 6px rgba(58, 134, 255, 0.25);
+}
+
+.save-bt{
+  background-color: #511f54;
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 12px 0;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.save-btn:hover,
+.save-btn:focus-visible {
+  background-color: #a15fa4a2 ;
+  outline: none;
+}
+
+.save-btn:active {
+  background-color: #2354a0;
+}
+
+/* Invalid input */
+.journal-edit-form input:invalid,
+.journal-edit-form textarea:invalid {
+  border-color: #e63946;
+}
+
+
+@media screen and (max-width: 768px) {
+.journal-edit-container {
+  width: 100%
+
+}
+}

@@ -1,0 +1,191 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  Agent
+  Leader
+  Member
+}
+
+enum AttendanceStatus {
+  Present
+  Absent
+  Excused
+}
+
+enum NotificationType {
+  General
+  MeetingReminder
+  LoanDue
+  RepaymentConfirmation
+  Announcement
+  Other
+}
+
+enum CycleStatus {
+  Active
+  Completed
+  Pending
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  role       Role
+  email      String   @unique
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  leader_groups   Group[]  @relation("LeaderGroup")
+  created_members Member[] @relation("UserCreatedMembers")
+
+  notifications Notification[]
+}
+
+model Trainer {
+  id      Int     @id @default(autoincrement())
+  name    String
+  phone   String
+  address String
+  groups  Group[]
+}
+
+model Group {
+  id       Int    @id @default(autoincrement())
+  name     String
+  location String
+
+  trainer    Trainer @relation(fields: [trainer_id], references: [id])
+  trainer_id Int
+
+  leader_user    User @relation("LeaderGroup", fields: [leader_user_id], references: [id])
+  leader_user_id Int  @unique
+
+  members  Member[]
+  cycles   Cycle[]
+  meetings Meeting[]
+}
+
+model Member {
+  id            Int      @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  phone         String   @unique
+  gender        String
+  date_of_birth DateTime
+  position      String
+  password      String
+
+  group    Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  group_id Int
+
+  created_by_user    User @relation("UserCreatedMembers", fields: [created_by_user_id], references: [id])
+  created_by_user_id Int
+
+  savings    Saving[]
+  loans      Loan[]
+  attendance Attendance[]
+  repayments Repayment[]
+}
+
+model Cycle {
+  id         Int         @id @default(autoincrement())
+  name       String
+  status     CycleStatus
+  start_date DateTime
+  end_date   DateTime
+
+  group    Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  group_id Int
+
+  meetings Meeting[]
+}
+
+model Meeting {
+  id                      Int      @id @default(autoincrement())
+  name                    String
+  date                    DateTime
+  total_savings_collected Decimal  @db.Decimal(10, 2)
+  total_loans_disbursed   Decimal  @db.Decimal(10, 2)
+
+  group    Group @relation(fields: [group_id], references: [id], onDelete: Cascade)
+  group_id Int
+
+  cycle    Cycle @relation(fields: [cycle_id], references: [id], onDelete: Cascade)
+  cycle_id Int
+
+  savings    Saving[]
+  loans      Loan[]
+  attendance Attendance[]
+}
+
+model Saving {
+  id     Int      @id @default(autoincrement())
+  amount Decimal  @db.Decimal(10, 2)
+  date   DateTime
+
+  member    Member @relation(fields: [member_id], references: [id], onDelete: Cascade)
+  member_id Int
+
+  meeting    Meeting @relation(fields: [meeting_id], references: [id], onDelete: Cascade)
+  meeting_id Int
+}
+
+model Loan {
+  id              Int      @id @default(autoincrement())
+  amount          Decimal  @db.Decimal(10, 2)
+  date            DateTime
+  is_fully_repaid Boolean
+
+  member    Member @relation(fields: [member_id], references: [id], onDelete: Cascade)
+  member_id Int
+
+  meeting    Meeting @relation(fields: [meeting_id], references: [id], onDelete: Cascade)
+  meeting_id Int
+
+  repayments Repayment[]
+}
+
+model Repayment {
+  id                Int      @id @default(autoincrement())
+  amount            Decimal  @db.Decimal(10, 2)
+  date_of_repayment DateTime
+
+  loan    Loan @relation(fields: [loan_id], references: [id], onDelete: Cascade)
+  loan_id Int
+
+  member    Member @relation(fields: [member_id], references: [id], onDelete: Cascade)
+  member_id Int
+}
+
+model Attendance {
+  id     Int              @id @default(autoincrement())
+  status AttendanceStatus
+
+  meeting    Meeting @relation(fields: [meeting_id], references: [id], onDelete: Cascade)
+  meeting_id Int
+
+  member    Member @relation(fields: [member_id], references: [id], onDelete: Cascade)
+  member_id Int
+}
+
+model Notification {
+  id         Int              @id @default(autoincrement())
+  user_id    Int
+  user       User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  message    String
+  type       NotificationType @default(General)
+  is_read    Boolean          @default(false)
+  created_at DateTime         @default(now())
+
+  @@index([user_id])
+  @@index([is_read])
+}

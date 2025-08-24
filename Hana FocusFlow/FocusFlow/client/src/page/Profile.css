@@ -1,0 +1,69 @@
+.title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #2D142E;
+  text-align: center;
+}
+
+.profile-card {
+  
+  background-color: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.profile-form label {
+  margin-top: 0;
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-form input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  color: white;
+  background-color: #2D142E;
+}
+
+.update-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.update-btn:hover {
+  background-color: #45a049;
+}
+
+.success-message,
+.error-message {
+  margin-bottom: 15px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.success-message {
+  background-color: #e6ffed;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.error-message {
+  background-color: #ffe6e6;
+  color: #c62828;
+  border: 1px solid #c62828;
+}

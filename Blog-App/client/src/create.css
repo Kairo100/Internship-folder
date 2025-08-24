@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.create-post-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.create-post-form {
+  background-color: #73946B; /* Background color */
+  padding: 50px; /* Padding for form */
+  border-radius: 10px; /* Rounded corners */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 600px; /* Width of the form */
+}
+
+.create-post-title {
+  text-align: center;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.create-post-input-group {
+  margin-bottom: 20px;
+}
+
+.create-post-label {
+  margin-bottom: 5px;
+  color: white;
+}
+
+.create-post-input {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.create-post-textarea {
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  resize: vertical;
+}
+
+.create-post-file-input {
+  border: none; /* Remove default border */
+  padding: 12px;
+}
+
+.create-post-button {
+  padding: 12px;
+  background-color: #537d5d; /* Button color */
+  color: white;
+  border: 3px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.create-post-button:hover {
+  background-color: #546c4e; /* Darker on hover */
+}
+
+.create-post-note {
+  text-align: center;
+  margin-top: 15px;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .create-post-container {
+    flex-direction: column;
+  }
+
+  .create-post-form {
+    width: 90%; /* Adjust for smaller screens */
+  }
+}

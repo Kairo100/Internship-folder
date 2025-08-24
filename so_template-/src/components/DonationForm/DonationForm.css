@@ -1,0 +1,372 @@
+.donation-form {
+  max-width: 45rem;
+  margin: auto;
+  padding: 1rem 1.8rem;
+  border-radius: 1rem;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.amount-buttons {
+  margin: 0 0.6rem;
+}
+
+.amount-buttons button {
+  padding: 0.9rem 0;
+  background: #fff;
+  border: 1px solid #c8c8c8;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #333;
+  transition: all 0.3s ease;
+}
+
+.amount-buttons button:hover {
+  border-color: #00cc99;
+  background-color: #f8f8f8;
+}
+
+.amount-buttons button.selected {
+  border-color: #00cc99;
+  background-color: #00cc99;
+  color: white;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #c8c8c8;
+  border-radius: 0.7rem;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+}
+
+.input-container:focus-within {
+  border-color: #00cc99;
+  background-color: #f8f8f8;
+}
+
+.amount-error {
+  border-color: #ed5151 !important;
+}
+
+.error-message {
+  color: #ed5151 !important;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.success-message {
+  color: #00cc99 !important;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.currency-symbol {
+  margin-right: 5px;
+  font-size: 16px;
+  color: #454547;
+}
+
+.amount-input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 10px;
+  font-size: 16px;
+  background-color: transparent;
+}
+
+.amount-input::placeholder {
+  color: #b0b0b0;
+}
+
+.payment-option {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  cursor: pointer;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.payment-option:hover {
+  border-color: #00cc99;
+  background-color: #f8f8f8;
+}
+
+.payment-option.selected {
+  border-color: #00cc99;
+  background-color: #f0fdf4;
+}
+
+.payment-option input[type="radio"] {
+  margin-right: 10px;
+}
+
+.payment-option label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin: 0;
+  font-weight: 500;
+}
+
+.bank-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 5px;
+  min-height: 80px;
+  position: relative;
+}
+
+.bank-option:hover:not(.disabled) {
+  border-color: #00cc99;
+  background-color: #f8f8f8;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.bank-option.selected {
+  border-color: #00cc99;
+  background-color: #f0fdf4;
+  border-width: 2px;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 204, 153, 0.2);
+}
+
+.bank-option.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background-color: #f8f8f8;
+  border-color: #d0d0d0;
+  position: relative;
+}
+
+.bank-option.disabled::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(0, 0, 0, 0.1) 10px,
+    rgba(0, 0, 0, 0.1) 20px
+  );
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.bank-option.disabled img {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.bank-option img {
+  max-width: 100%;
+  max-height: 50px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px 15px;
+  border: 1px solid #c8c8c8;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #00cc99;
+  box-shadow: 0 0 0 0.2rem rgba(0, 204, 153, 0.25);
+}
+
+.btn-primary {
+  background-color: #00cc99;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 0.7rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: #00a583;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 204, 153, 0.3);
+}
+
+.btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.loading-spinner {
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #00cc99;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.notification {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}
+
+.notification.success {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.notification.error {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+.project-summary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 0.7rem;
+}
+
+.project-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 1rem;
+}
+
+.project-info h4 {
+  margin: 0 0 0.5rem 0;
+  color: #0a449c;
+  font-weight: 600;
+}
+
+.project-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.countdown-notice {
+  text-align: center;
+  padding: 1rem;
+  background-color: #e7f3ff;
+  border: 1px solid #b3d9ff;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.countdown-notice h4 {
+  color: #0066cc;
+  margin-bottom: 0.5rem;
+}
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+/* Bank Steps Guide */
+.bank-steps-guide {
+  background: #f8f9fa;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  border: 1px solid #e9ecef;
+}
+
+.bank-steps-guide h6 {
+  color: #495057;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.bank-steps-guide p {
+  color: #6c757d;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.bank-steps-guide .btn {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  border: none;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.bank-steps-guide .btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+  .bank-steps-guide {
+    padding: 1rem;
+  }
+
+  .bank-steps-guide .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.9rem;
+  }
+}

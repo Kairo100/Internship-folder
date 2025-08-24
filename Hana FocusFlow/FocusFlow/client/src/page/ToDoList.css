@@ -1,0 +1,67 @@
+.all-todos-container {
+  width: 100%;
+  padding: 0 20px;
+  margin: 40px auto;
+}
+
+.todo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+
+/* Each todo-card grows vertically based on content */
+.all-todos-container .todo-card {
+  background-color: #2D142E;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 250px; /* Min width for layout, auto height */
+  max-width: 300px;
+  box-sizing: border-box;
+}
+
+.todo-header {
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #f0e6f7;
+  border-bottom: 1px solid #693B69;
+  padding-bottom: 8px;
+}
+
+.task-section {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fixed-add-button {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #2D142E; /* dark purple or your theme color */
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(45, 20, 46, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  z-index: 9999; /* on top of everything */
+}
+
+.fixed-add-button:hover {
+  background-color: #45186a; /* slightly lighter on hover */
+}
+
+.fixed-add-button svg {
+  pointer-events: none; /* so clicking anywhere on button works */
+}

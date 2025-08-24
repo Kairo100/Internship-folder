@@ -1,0 +1,128 @@
+/* Container inherits main container styles, with some tweaks */
+.main{
+  width: calc(100% - 100px);
+
+}/* Page title */
+.page-title {
+  font-weight: 700;
+  font-size: 2rem;
+  margin-top:0;
+  padding-top: 0;
+  margin-bottom: 24px;
+  color: #2d142e;
+  text-align: center;
+}
+
+/* Form base */
+.todo-create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background-color: #2d142e;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Labels */
+.form-label {
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: 6px;
+  color: #f0e6f7;
+}
+
+/* Inputs */
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  outline: none;
+  transition: box-shadow 0.2s ease;
+  
+}
+
+.form-input:focus {
+   
+  box-shadow: 0 0 0 3px rgba(158, 112, 168, 0.5);
+}
+
+/* Task input wrapper */  
+.task-input-wrapper {
+  margin-bottom: 10px;
+}
+
+/* Smaller task input */
+.task-input {
+  font-size: 0.95rem;
+}
+
+/* Add Task button */
+.btn-add-task {
+  align-self: flex-start;
+  background-color: #693B69;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.btn-add-task:hover:not(:disabled) {
+  background-color: #80568a;
+}
+
+/* Error message styling */
+.form-error {
+  color: #ff6b6b;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Save button */
+.save-btn {
+  background-color: #80568a !important;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 14px 0;
+  border-radius: 10px;
+  border: 2px solid #693B69;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.save-btn:hover:not(:disabled) {
+  background-color: #693B69;
+  border-color: #2D142E;
+  color: white;
+}
+
+.save-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .main {
+    width: 100%;
+  }
+
+  .todo-create-form {
+    padding: 16px;
+  }
+}
+
+
+
+
+

@@ -1,0 +1,183 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  Admin
+  Agent
+  Leader
+  Member
+}
+
+enum AttendanceStatus {
+  Present
+  Absent
+  Excused
+}
+
+model User {
+  id            Int    @id @default(autoincrement())
+  name          String
+  role          Role
+  email         String @unique
+  password_hash String
+
+  created_by_user     User?          @relation("UserCreatedUsers", fields: [created_by_user_id], references: [id])
+  created_by_user_id  Int?
+  created_users       User[]         @relation("UserCreatedUsers")
+  created_members     Member[]       @relation("UserCreatedMembers")
+  received_repayments Repayment[]
+  notifications       Notification[]
+
+  leader_group Group? @relation("LeaderGroup") // ← Fix: no fields/references here
+}
+
+model Trainer {
+  id      Int    @id @default(autoincrement())
+  name    String
+  phone   String
+  address String
+
+  groups Group[]
+}
+
+model Group {
+  id                     Int      @id @default(autoincrement())
+  name                   String
+  date_of_first_training DateTime
+  location               String
+
+  trained_by_trainer    Trainer @relation(fields: [trained_by_trainer_id], references: [id])
+  trained_by_trainer_id Int
+
+  leader_user_id Int  @unique
+  leader_user    User @relation("LeaderGroup", fields: [leader_user_id], references: [id]) // ← Fields defined here only
+
+  members  Member[]
+  cycles   Cycle[]
+  meetings Meeting[]
+}
+
+model Member {
+  id            Int      @id @default(autoincrement())
+  first_name    String
+  last_name     String
+  phone         String
+  gender        String
+  date_of_birth DateTime
+  position      String
+  password      String
+
+  group    Group @relation(fields: [group_id], references: [id])
+  group_id Int
+
+  created_by_user    User @relation("UserCreatedMembers", fields: [created_by_user_id], references: [id])
+  created_by_user_id Int
+
+  savings    Saving[]
+  loans      Loan[]
+  attendance Attendance[]
+}
+
+model Cycle {
+  id         Int      @id @default(autoincrement())
+  name       String
+  status     String
+  start_date DateTime
+  end_date   DateTime
+
+  group    Group @relation(fields: [group_id], references: [id])
+  group_id Int
+
+  meetings Meeting[]
+}
+
+model Meeting {
+  id                      Int      @id @default(autoincrement())
+  name                    String
+  date                    DateTime
+  total_savings_collected Float
+  total_loans_disbursed   Float
+
+  group    Group @relation(fields: [group_id], references: [id])
+  group_id Int
+
+  cycle    Cycle @relation(fields: [cycle_id], references: [id])
+  cycle_id Int
+
+  savings    Saving[]
+  loans      Loan[]
+  attendance Attendance[]
+}
+
+model Saving {
+  id     Int      @id @default(autoincrement())
+  amount Float
+  date   DateTime
+
+  member    Member @relation(fields: [member_id], references: [id])
+  member_id Int
+
+  meeting    Meeting @relation(fields: [meeting_id], references: [id])
+  meeting_id Int
+}
+
+model Loan {
+  id              Int      @id @default(autoincrement())
+  amount          Float
+  date            DateTime
+  is_fully_repaid Boolean
+
+  member    Member @relation(fields: [member_id], references: [id])
+  member_id Int
+
+  meeting    Meeting @relation(fields: [meeting_id], references: [id])
+  meeting_id Int
+
+  repayments Repayment[]
+}
+
+model Repayment {
+  id                Int      @id @default(autoincrement())
+  amount            Float
+  date_of_repayment DateTime
+
+  loan    Loan @relation(fields: [loan_id], references: [id])
+  loan_id Int
+
+  received_by_user    User @relation(fields: [received_by_user_id], references: [id])
+  received_by_user_id Int
+}
+
+model Attendance {
+  id     Int              @id @default(autoincrement())
+  status AttendanceStatus
+
+  meeting    Meeting @relation(fields: [meeting_id], references: [id])
+  meeting_id Int
+
+  member    Member @relation(fields: [member_id], references: [id])
+  member_id Int
+}
+
+model Notification {
+  id      Int     @id @default(autoincrement())
+  message String
+  type    String
+  is_read Boolean
+  link    String
+
+  user    User @relation(fields: [user_id], references: [id])
+  user_id Int
+}

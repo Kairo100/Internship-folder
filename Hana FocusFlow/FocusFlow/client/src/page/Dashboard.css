@@ -1,0 +1,201 @@
+.layout {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f3f4f6;
+}
+
+.main-container {
+  flex: 1;
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  overflow-y: auto;
+  margin-left: 200px;
+  width: calc(100% - 200px);
+  padding-top: 100px;
+  box-sizing: border-box;
+}
+
+.main-contact {
+   width: calc(100% - 200px);
+  display: flex;
+  gap: 32px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+/* Card Layout: Default (Desktop) */
+.todo-card,
+.journal-card {
+  flex: 1 1 calc(50% - 16px);
+  max-width: calc(50% - 16px);
+  box-sizing: border-box;
+}
+
+/* Tablet and below */
+@media (max-width: 768px) {
+  .main-container {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .main-contact {
+    width: 100%;
+  }
+
+  .sidebar {
+    position: fixed;
+    z-index: 40;
+  }
+
+  .todo-card,
+  .journal-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
+/* Card Styles */
+.todo-card {
+  height: 300px;
+  padding: 10px 15px;
+  background: #2D142E;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.todo-header {
+  align-self: stretch;
+  padding: 10px;
+  background: #693B69;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-text {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  word-wrap: break-word;
+  width: 100%;
+}
+
+.task-section {
+  align-self: stretch;
+  height: 200px;
+  padding: 15px 10px;
+  background: #693B69;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+}
+
+.task-title,
+.task-text {
+  color: white;
+  font-size: 16px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox {
+  width: 24px;
+  height: 24px;
+  position: relative;
+}
+
+.checkbox-inner {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  background: white;
+}
+
+/* Journal Card Styles */
+.journal-card {
+  height: 300px;
+  padding: 10px 15px;
+  background: #693B69;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.journal-header {
+  align-self: stretch;
+  padding: 10px;
+  background: #2D142E;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+}
+
+.journal-content {
+  align-self: stretch;
+  height: 200px;
+  padding: 15px 10px;
+  background: #2D142E;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  overflow-y: auto;
+ 
+}
+
+.journal-content-text {
+  color: white ;
+  font-size: 16px;
+  font-weight: 600;
+  word-wrap: break-word;
+}
+
+.journal-placeholder {
+  width: 100%;
+  height: 100px;
+  font-style: italic;
+  color: white !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.journal-placeholder a {
+  color: #007bff;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.placeholder-icon {
+  font-size: 46px;
+  color: #fff;
+}

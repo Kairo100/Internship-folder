@@ -1,0 +1,1147 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+:root {
+  --default-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Ubuntu, "Helvetica Neue", Helvetica, Arial, "PingFang SC",
+    "Hiragino Sans GB", "Microsoft Yahei UI", "Microsoft Yahei",
+    "Source Han Sans CN", sans-serif;
+  --spacing-xl: 120px;
+  --spacing-lg: 64px;
+  --spacing-md: 32px;
+  --spacing-sm: 24px;
+  --spacing-xs: 16px;
+  --color-primary: #511f54;
+  --color-secondary: #2d142e;
+  --color-tertiary: #693b69;
+  --color-light: #ffffff;
+  --color-dark: #1c1c1e;
+}
+
+
+.main-container,
+.main-container * {
+   padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+input,
+select,
+textarea,
+button {
+  outline: 0;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl); /* Default gap between sections */
+  width: 100%; /* Fluid width */
+  
+  margin: 0 auto; /* Center the container */
+  background: var(--color-light);
+  overflow: hidden;
+}
+
+.main-container-home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xl); /* Default gap between sections */
+  width: 100%; /* Fluid width */
+
+  margin: 0 auto; /* Center the container */
+  background: var(--color-light);
+  overflow: hidden;
+}
+
+/* Navigation Bar */
+.nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 92px;
+  padding: 10px var(--spacing-xl); /* Default padding */
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+
+.icon-logo {
+  flex-shrink: 0;
+  width: 61px;
+  height: 61px;
+  overflow: hidden;
+}
+
+.frame {
+  width: 60px;
+  height: 60px;
+  margin: 1px 0 0 0;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/rALwvKn7Yy.png)
+    no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+}
+
+.signup,
+.signin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 40px;
+  border: 1px solid var(--color-primary);
+  border-radius: 10px;
+}
+
+.signup {
+  background: transparent;
+}
+
+.signin {
+  background: var(--color-primary);
+}
+
+.signup-btn {
+  color: var(--color-primary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.signup-btn-1 {
+  color: var(--color-light);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Hero Section */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  
+}
+
+.frame-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 51px;
+}
+
+.container-3 {
+  display: flex;
+  flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+  align-items: center;
+  justify-content: center; /* Center items when wrapped */
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  width: 100%; /* Make text content fluid */
+  max-width: 584px; /* Maintain max-width for larger screens */
+}
+
+.organize-life-task {
+  width: 100%;
+  color: var(--color-secondary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 70px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.stay-productive-tool {
+  width: 100%;
+  max-width: 481px; /* Maintain max-width for larger screens */
+  color: var(--color-dark);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.signup-4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 379px; /* Maintain max-width for larger screens */
+  padding: 10px 40px;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 10px;
+}
+
+.frame-5 {
+  width: 24px;
+  height: 24px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/vKz0tP21Uj.png)
+    no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.get-started-free {
+  color: var(--color-light);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.undraw-documents-rcz {
+  width: 100%; /* Fluid width */
+  max-width: 488px; /* Max width for larger screens */
+  height: 340px; /* Maintain aspect ratio */
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/tL77L8Hxvi.png)
+    no-repeat center;
+  background-size: contain; /* Ensure the image fits */
+  overflow: hidden;
+}
+
+/* To-Do List Section */
+.to-do-list {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.section-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 10px var(--spacing-xl);
+}
+
+.container-6 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  gap: var(--spacing-sm);
+  height: auto; /* Adjust height dynamically */
+}
+
+.features-section {
+  width: 100%;
+  color: var(--color-secondary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.love-this-to-do-list {
+  width: 100%;
+  color: var(--color-primary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.to-do {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px var(--spacing-xl);
+}
+
+.container-7 {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap */
+  justify-content: center; /* Center cards when wrapped */
+  gap: var(--spacing-sm); /* Spacing between cards */
+  width: 100%;
+}
+
+.section-5,
+.section-6,
+.box-4,
+.wrapper-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: var(--spacing-sm) 12px;
+  border-radius: 5px;
+  width: 100%; /* Make cards fluid width */
+  max-width: 280px; /* Max width for cards */
+  height: auto; /* Adjust height dynamically */
+}
+
+.section-5 {
+  background: var(--color-secondary);
+  border: 1px solid var(--color-light);
+}
+
+.section-6 {
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.box-4 {
+  background: var(--color-tertiary);
+  border: 1px solid var(--color-primary);
+}
+
+.wrapper-3 {
+  background: rgba(105, 59, 105, 0.8);
+  border: 1px solid #876287;
+}
+
+.frame-8,
+.frame-9,
+.frame-a,
+.frame-b {
+  width: 50px;
+  height: 50px;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.frame-8 {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/RQzvUZqO0T.png);
+}
+.frame-9 {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/5L5hpnPS4M.png);
+}
+.frame-a {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/bw0ducw1rx.png);
+}
+.frame-b {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/8AGGKUiUPZ.png);
+}
+
+.simple-task-management,
+.smart-reminders,
+.due-dates-priorities,
+.dark-mode-ready {
+  width: 100%;
+  color: var(--color-light);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.task-edit-organize,
+.important-deadlines,
+.week-deadlines-priorities,
+.work-comfortably-day {
+  width: 100%;
+  color: var(--color-light);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/* Journal Section */
+.journal-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 10px var(--spacing-xl);
+}
+
+.container-c {
+  display: flex;
+  flex-wrap: wrap; /* Allow content to wrap */
+  align-items: center;
+  justify-content: center; /* Center items when wrapped */
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.undraw-organized-content {
+  width: 100%; /* Fluid width */
+  max-width: 581px; /* Max width for larger screens */
+   height: 437px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/49JS6B6Thf.png)
+    no-repeat center;
+  background-size: contain;
+  overflow: hidden;
+}
+
+.text-d {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-sm);
+  width: 100%; /* Fluid width */
+  max-width: 485px; /* Max width for larger screens */
+  height: auto; /* Adjust height dynamically */
+}
+
+.journal-section-e {
+  width: 100%;
+  color: var(--color-secondary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.reflect-grow-daily {
+  width: 100%;
+  color: var(--color-primary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.go-beyond-tasks {
+  width: 100%;
+  max-width: 485px;
+  color: var(--color-dark);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.signup-f {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 288px;
+  padding: 10px 40px;
+  background: var(--color-light);
+  border: 1px solid var(--color-primary);
+  border-radius: 10px;
+}
+
+.start-journaling-today {
+  color: var(--color-primary);
+  font-family: Montserrat, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Footer Section */
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background: var(--color-secondary);
+}
+
+.frame-10 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  /* padding: 32px 0; */
+  background: var(--color-secondary);
+}
+
+.subscribe {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 0 var(--spacing-xl);
+}
+
+.container-11 {
+  display: flex;
+  flex-wrap: wrap; /* Allow content to wrap */
+  align-items: center;
+  justify-content: center; /* Center items when wrapped */
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.text-12 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  width: 100%; /* Fluid width */
+  max-width: 499px; /* Max width for larger screens */
+}
+
+.frame-13 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.join-our-community {
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.get-latest-news {
+  width: 100%;
+  max-width: 499px;
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+}
+
+.email {
+  display: flex;
+  flex-wrap: wrap; /* Allow input and button to wrap */
+  align-items: center;
+  justify-content: center; /* Center items when wrapped */
+  gap: var(--spacing-sm);
+  width: 100%;
+  height: auto; /* Adjust height dynamically */
+}
+
+.frame-14 {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  max-width: 454px; /* Max width for input field */
+  padding: 10px 20px;
+  border: 1px solid var(--color-tertiary);
+  border-radius: 10px;
+}
+
+.email-15 {
+  flex-grow: 1; /* Allow input to take available space */
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  background: transparent; /* Make input background transparent */
+  border: none;
+}
+
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: var(--color-tertiary);
+  border-radius: 7px;
+  width: 100%; /* Make button fluid width */
+  max-width: 200px; /* Limit button width */
+}
+
+.start-donating {
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.container-16 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+   padding: 10px var(--spacing-xs);
+}
+
+.bottom-footer {
+  display: flex;
+  flex-wrap: wrap; /* Allow footer sections to wrap */
+  justify-content: space-between;
+  width: 100%;
+  padding: 71px 0;
+  background: var(--color-secondary);
+}
+
+.container-17 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  width: 100%;
+}
+
+.footer-text {
+  display: flex;
+  flex-wrap: wrap; /* Allow footer columns to wrap */
+  align-items: flex-start; /* Align top on wrap */
+  justify-content: space-between;
+  gap: var(--spacing-md); /* Spacing between columns */
+  width: 100%;
+}
+
+.about-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--spacing-md); /* Adjust gap for better layout */
+  width: 100%;
+  max-width: 686px; /* Limit width */
+  height: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center; /* Align logo and text */
+  width: 100%;
+  max-width: 450px; /* Limit logo container width */
+  position: relative; /* For absolute positioned tagline */
+}
+
+.icon-logo-18 {
+  width: 80px;
+  height: 80px;
+  overflow: hidden;
+}
+
+.frame-19 {
+  width: 80px;
+  height: 80px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/URDABwWMVs.png)
+    no-repeat center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.focusflow {
+  color: var(--color-light);
+  font-family: Nunito, var(--default-font-family);
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 1.2;
+  white-space: nowrap;
+  margin-left: 10px; /* Spacing between logo and text */
+}
+
+.focus-on-your-goals {
+  color: var(--color-light);
+  font-family: Nunito, var(--default-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  position: absolute; /* Re-evaluate this for different layouts */
+  top: 66.113px; /* Adjust as needed */
+  left: 148px; /* Adjust as needed */
+}
+
+.contact-us {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  width: 100%;
+  max-width: 300px; /* Limit width */
+}
+
+.frame-1a {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.contact {
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.email-1b,
+.phone,
+.location {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: var(--spacing-md);
+}
+
+.envelope-solid,
+.phone-solid,
+.location-dot-solid {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px; /* Standardize height for icons */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+.envelope-solid {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/TvUAPFreTQ.png);
+}
+.phone-solid {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/0ONF2H6RA4.png);
+}
+.location-dot-solid {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/DNVkrBBBnw.png);
+  height: 27px; /* Keep original height for this icon's aspect ratio */
+}
+
+.frame-1c,
+.frame-1d,
+.frame-1e {
+  display: flex;
+  flex-direction: column; /* Or row if content is short */
+  align-items: flex-start;
+  flex-grow: 1;
+  gap: 10px;
+}
+
+.span-focusflow,
+.span-text,
+.span-hargeisa {
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 195px;
+  height: 50px;
+}
+
+.square-facebook-brands,
+.square-x-twitter-brands,
+.linkedin-brands {
+  width: 20px;
+  height: 23px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  overflow: hidden;
+}
+
+.square-facebook-brands {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/TzABGtbxdh.png);
+}
+.square-x-twitter-brands {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/40eCwVeoO5.png);
+}
+.linkedin-brands {
+  background-image: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/42U8mGYtBd.png);
+}
+
+.frame-1f {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  gap: 10px;
+}
+
+.line {
+  width: 100%;
+  height: 1px;
+  background: url(https://codia-f2c.s3.us-west-1.amazonaws.com/image/2025-05-20/DnoUVYhmg0.png)
+    no-repeat center;
+  background-size: cover;
+}
+
+.last {
+  display: flex;
+  flex-wrap: wrap; /* Allow copyright and privacy to wrap */
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--spacing-xs); /* Add gap for wrapped items */
+}
+
+.span-copy-right-hana,
+.span-privacy-policy {
+  color: var(--color-light);
+  font-family: Roboto, var(--default-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+/* Input field and button styles (general) */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid var(--color-primary);
+  border-radius: 5px;
+  font-family: var(--default-font-family);
+}
+
+.submit-btn {
+  background-color: var(--color-primary);
+  color: var(--color-light);
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: var(--default-font-family);
+  width: 100%; /* Make button fluid */
+  max-width: 200px; /* Limit button width */
+}
+
+.submit-btn:hover {
+  background-color: var(--color-tertiary);
+}
+
+/* ------------------- Media Queries ------------------- */
+
+/* Tablet and smaller desktop screens (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .main-container,
+  .main-container-home {
+    gap: var(--spacing-lg); /* Reduce gap between sections */
+  }
+
+  .nav,
+  .hero,
+  .section-title,
+  .to-do,
+  .journal-section,
+  .subscribe,
+  .container-16 {
+    padding: 10px var(--spacing-md); /* Reduce horizontal padding */
+  }
+
+  
+  .container-c {
+    flex-direction: column; /* Stack hero and journal sections vertically */
+  }
+
+  .text,
+  .undraw-documents-rcz,
+  .text-d {
+    max-width: 100%; /* Allow these to take full width */
+    text-align: center; /* Center text when stacked */
+  }
+
+  .organize-life-task {
+    font-size: 50px; /* Adjust font size */
+    text-align: center;
+  }
+
+  .stay-productive-tool {
+    font-size: 14px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .signup-4 {
+    max-width: 300px; /* Adjust button max-width */
+  }
+
+  .container-7 {
+    justify-content: center; /* Ensure cards are centered */
+  }
+
+  .section-5,
+  .section-6,
+  .box-4,
+  .wrapper-3 {
+    max-width: 250px; /* Slightly reduce card max width */
+  }
+
+  .reflect-grow-daily {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .go-beyond-tasks {
+    font-size: 16px;
+    text-align: center;
+    max-width: 100%;
+  }
+
+  .email {
+    flex-direction: column; /* Stack email input and button */
+    align-items: center;
+    gap: var(--spacing-xs);
+  }
+
+  .frame-14,
+  .cta {
+    max-width: 400px; /* Adjust max width for input and button */
+    width: 100%; /* Ensure they take full available width */
+  }
+
+  .footer-text {
+    flex-direction: column; /* Stack footer columns */
+    align-items: flex-start; /* Align text left */
+  }
+
+  .about-footer,
+  .contact-us {
+    max-width: 100%; /* Allow footer sections to take full width */
+  }
+
+  .logo {
+    justify-content: center; /* Center logo on smaller screens */
+  }
+
+  .focus-on-your-goals {
+    /* Re-evaluate or remove this absolute positioning for responsiveness */
+    position: static;
+    margin-top: 5px; /* Add some margin if stacked */
+    text-align: center;
+    width: 100%;
+    left: auto;
+    top: auto;
+  }
+
+  .last {
+    flex-direction: column; /* Stack copyright and privacy policy */
+    align-items: center;
+    gap: 10px;
+  }
+}
+
+/* Mobile screens (max-width: 767px) */
+@media (max-width: 767px) {
+  .main-container,
+  .main-container-home {
+    gap: var(--spacing-md); /* Further reduce gap */
+  }
+
+  .nav {
+    padding: 10px var(--spacing-xs); /* Minimal horizontal padding */
+    height: auto; /* Allow height to adjust */
+   
+  }
+
+  .container {
+    flex-direction: row; /* Stack logo and buttons */
+    gap: var(--spacing-xs);
+  }
+
+  .btn {
+    flex-direction: row; /* Stack signup/signin buttons */
+    width: 100%; /* Allow buttons to take full width */
+    gap: 10px;
+  }
+
+  .signup,
+  .signin {
+    width: 50%; /* Full width for buttons */
+    width: 200px; /* Limit button width */
+  }
+
+  .hero,
+  .section-title,
+  .to-do,
+  .journal-section,
+  .subscribe,
+  .container-16 {
+    padding: 10px var(--spacing-xs); /* Minimal horizontal padding */
+  }
+.journal-section{
+  justify-content: center;
+}
+.logo{
+  flex-direction: column;
+}
+  .organize-life-task {
+    font-size: 40px; /* Even smaller font size */
+    line-height: 1.1;
+  }
+
+  .stay-productive-tool {
+    font-size: 12px;
+  }
+.text{
+  justify-content: center;
+}
+  .get-started-free {
+    font-size: 16px;
+  }
+
+  .undraw-documents-rcz,
+  .undraw-organized-content {
+    height: 250px; /* Reduce height for mobile images */
+    background-size: contain;
+  }
+
+  .love-this-to-do-list,
+  .reflect-grow-daily {
+    font-size: 20px;
+    line-height: 1.1;
+  }
+
+  .go-beyond-tasks {
+    font-size: 14px;
+  }
+
+  .container-7 {
+    flex-direction: column; /* Stack feature cards */
+    align-items: center; /* Center stacked cards */
+  }
+
+  .section-5,
+  .section-6,
+  .box-4,
+  .wrapper-3 {
+    width: 100%; /* Full width for cards */
+    max-width: 300px; /* Limit width to avoid stretching too wide on small screens */
+  }
+
+  .join-our-community {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .get-latest-news {
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .email-15,
+  .start-donating {
+    font-size: 16px;
+  }
+
+  .contact {
+    font-size: 18px;
+  }
+
+  .span-focusflow,
+  .span-text,
+  .span-hargeisa {
+    font-size: 14px;
+  }
+
+  .focusflow {
+    font-size: 40px; /* Adjust focusflow font size */
+  }
+
+  .social-icons {
+    width: 100%;
+    justify-content: center; /* Center social icons */
+    gap: 20px; /* Add gap between icons */
+  }
+
+  .span-copy-right-hana,
+  .span-privacy-policy {
+    font-size: 14px;
+    text-align: center;
+  }
+}
+
+/* Extra small mobile devices (max-width: 480px) */
+@media (max-width: 480px) {
+   .container {
+    flex-direction: row; /* Stack logo and buttons */
+    gap: var(--spacing-xs);
+  }
+
+  .btn {
+    flex-direction: row; /* Stack signup/signin buttons */
+    width: 100%; /* Allow buttons to take full width */
+    gap: 10px;
+  }
+
+  .signup,
+  .signin {
+    width: 50%; /* Full width for buttons */
+  
+  }
+
+  
+  .organize-life-task {
+    font-size: 32px;
+  }
+
+  .love-this-to-do-list,
+  .reflect-grow-daily {
+    font-size: 18px;
+  }
+
+  .focusflow {
+    font-size: 30px;
+  }
+
+  .signup-btn,
+  .signup-btn-1 {
+    font-size: 12px;
+  }
+}
