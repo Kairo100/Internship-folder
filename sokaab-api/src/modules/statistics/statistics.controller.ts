@@ -301,7 +301,7 @@ export class StatisticsController {
     const projectsAccountNumbers = projects.flatMap((project) =>
       project.Project_accounts.map((account) => account.AccNo),
     );
-
+  
     let total_funding_raised = 0;
     let total_matching_funding = 0;
 

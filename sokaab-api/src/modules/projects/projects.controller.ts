@@ -42,6 +42,7 @@ import {
   searchFilterSchema,
   CreateProjectDocumentDto, // <--- ADD THIS
   CreateProjectDocumentSchema, // <--- ADD THIS
+ 
 
 } from './dto/dtos';
 import { ZodValidationPipe } from 'src/validations/zod';
@@ -1204,6 +1205,77 @@ async uploadProjectDocument(
       rowsCount,
     };
   }
+
+  //added this post
+  // Add this to ProjectsController
+
+// GET stays the same (still reads from Receipts)
+
+// Add manual transaction into Receipts
+@Post(':id/transactions')
+async addTransaction(
+  @Param('id') projectId: string,
+  @Body()
+  transactionData: {
+    AccNo: string
+    TranAmt: number
+    CustomerName?: string
+    Narration?: string
+    Category?: string
+    DrCr?: string
+    CurrencyCode?: string
+    TranDate?: string   // ✅ added
+  },
+) {
+  // ✅ Verify project exists
+  const project = await this.prismaService.projects.findUnique({
+    where: { project_id: Number(projectId) },
+    include: { Project_accounts: true },
+  })
+  if (!project) {
+    throw new NotFoundException(`Project ${projectId} not found`)
+  }
+
+  // ✅ Ensure account belongs to project
+  const accounts = project.Project_accounts.map((acc) => acc.AccNo)
+  if (!accounts.includes(transactionData.AccNo)) {
+    throw new BadRequestException(
+      `Account ${transactionData.AccNo} does not belong to project ${projectId}`,
+    )
+  }
+
+  // ✅ Insert into Receipts (same table used for GET)
+  const safeTranAmt = transactionData.TranAmt !== null && !isNaN(Number(transactionData.TranAmt))
+    ? Number(transactionData.TranAmt)
+    : 0;
+
+  const transaction = await this.prismaService.receipts.create({
+   
+     data: {
+    TranNo: crypto.randomUUID(),
+    AccNo: transactionData.AccNo,
+    // TranAmt: new Prisma.Decimal(transactionData.TranAmt), // ✅ important
+    TranAmt: new Prisma.Decimal(safeTranAmt),
+    CustomerName: transactionData.CustomerName,
+    Narration: transactionData.Narration,
+    Category: transactionData.Category,
+    DrCr: transactionData.DrCr,
+    CurrencyCode: (transactionData.CurrencyCode || 'USD').trim().toUpperCase(),
+    TranDate: transactionData.TranDate 
+      ? new Date(transactionData.TranDate).toISOString()
+      : new Date().toISOString(),
+  }
+
+
+  })
+
+  return {
+    statusCode: 201,
+    message: 'Transaction added successfully',
+    data: transaction,
+  }
+}
+
 
   // ** Transactinos *
   @Get(':id/in-kind-donations')

@@ -1,5 +1,6 @@
 // ** React Imports
-import { ReactNode } from 'react'
+//forgetpassword
+import { ReactNode, useState  } from 'react'
 import Link from 'next/link'
 import { Box, Button, Typography, CardContent } from '@mui/material'
 import { styled, useTheme } from '@mui/material/styles'
@@ -46,28 +47,29 @@ const ForgotPasswordPage = () => {
     resolver: yupResolver(schema)
   })
 
+    // ✅ Add state for "isCodeSent"
+  const [isCodeSent, setIsCodeSent] = useState(false)
+
   // ** Handle form submission
   const onSubmit = async (data: ForgotPasswordFormData) => {
-    try {
-      
-      // const response = await fetch('/api/auth/forgot-password', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ email: data.email })
-      // });
-      // const result = await response.json();
+  try {
+    const response = await fetch(`${process.env.API_URL}/auth/forgot-password`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: data.email })
+    });
 
-      // Placeholder for API call success/failure
-      console.log('Forgot password request for:', data.email);
-      await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate API call delay
+    const result = await response.json();
 
-      toast.success('If an account with that email exists, a password reset link has been sent.', { duration: 5000 });
+    if (!response.ok) throw new Error(result.message || 'Failed to send code');
 
-
-    } catch (error: any) {
-      toast.error(error.message || 'Something went wrong. Please try again later.', { duration: 5000 });
-    }
+    setIsCodeSent(true);
+    toast.success('We sent a verification code to your email.');
+  } catch (error: any) {
+    toast.error(error.message || 'Something went wrong.');
   }
+};
+
 
   return (
     <Box className='content-center'>
@@ -114,7 +116,7 @@ const ForgotPasswordPage = () => {
                 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', '& svg': { mr: 1 } }}
               >
                 <Icon fontSize='1.25rem' icon='tabler:chevron-left' />
-                <LinkStyled href='/pages/auth/login-v1'>Back to login</LinkStyled>
+                <LinkStyled href='/login'>Back to login</LinkStyled>
               </Typography>
             </form>
           </CardContent>

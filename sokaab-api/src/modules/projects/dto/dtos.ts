@@ -240,3 +240,9 @@ export const CreateProjectDocumentSchema = z.object({
 export type CreateProjectDocumentDto = z.infer<typeof CreateProjectDocumentSchema>;
 export const UpdateProjectDocumentSchema = CreateProjectDocumentSchema.partial();
 export type UpdateProjectDocumentDto = z.infer<typeof UpdateProjectDocumentSchema>;
+
+
+
+
+
+

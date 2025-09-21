@@ -4,6 +4,7 @@ import {
   Project_accounts,
   Project_committee,
   Prisma,
+  paystack_transaction,
 } from '@prisma/client';
 
 import { PrismaService } from '../../services/prisma.service';
@@ -266,4 +267,14 @@ export class ProjectsService {
       where,
     });
   }
+
+  
+  
+
+
 }
+
+
+
+
+

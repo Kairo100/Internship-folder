@@ -10,9 +10,13 @@ import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './middlewares/auth.guard';
 import { StatisticsModule } from './modules/statistics/statistics.module';
 import { PublicModule } from './modules/public/public.module';
+import { ConfigModule } from '@nestjs/config'; // ⬅️ add this
 
 @Module({
   imports: [
+    ConfigModule.forRoot({        // ⬅️ load .env globally
+      isGlobal: true,
+    }),
     ProjectsModule,
     UsersModule,
     OrganisationsModule,
@@ -20,6 +24,7 @@ import { PublicModule } from './modules/public/public.module';
     AuthModule,
     StatisticsModule,
     PublicModule,
+
   ],
   controllers: [AppController],
   providers: [

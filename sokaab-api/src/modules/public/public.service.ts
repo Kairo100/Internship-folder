@@ -13,6 +13,11 @@ import { PrismaService } from 'src/services/prisma.service';
 import { PaymentDto, PaystackDto } from './dto';
 import { PaystackRequest, WaafiRequest } from 'src/types/payment.type';
 
+//added
+import * as nodemailer from 'nodemailer';
+import { title } from 'process';
+
+
 @Injectable()
 export class PublicService {
   private readonly WAAFIMERCHANTUID = 'M0913684';
@@ -711,8 +716,17 @@ export class PublicService {
           where: {
             bankId: 'Paystack',
             project_Id: currentPaystackTransaction.project_id,
+           
+           
           },
         });
+              const project = await this.prisma.projects.findUnique({
+  where: {
+    project_id: currentPaystackTransaction.project_id ?? undefined,
+  },
+  select: { title: true },
+});
+
 
         await this.prisma.receipts.create({
           data: {
@@ -741,6 +755,38 @@ export class PublicService {
           },
         });
 
+
+        // --- NEW: send receipt email (non-blocking but awaited so tests see it) ---
+
+
+        try {
+          // get donor email from the saved transaction (the string is "email - name")
+          const donorEmail = currentPaystackTransaction.email?.split(' - ')[0] ?? null;
+          const donorName = currentPaystackTransaction.email?.split(' - ')[1] ?? null;
+
+          if (donorEmail) {
+            const { previewUrl } = await this.sendPaystackReceiptEmail({
+              toEmail: donorEmail,
+              toName: donorName ?? undefined,
+              projectId: currentPaystackTransaction.project_id ?? undefined,
+              reference: ref.toUpperCase(),
+              amount: Number(currentPaystackTransaction.amount ?? 0),
+              tranDate: String(createdAt),
+              projectName: project?.title ?? undefined
+            });
+
+            if (previewUrl) {
+              // make it easy to see in logs while testing with Ethereal
+              this.logger.log(`Ethereal preview URL: ${previewUrl}`);
+            }
+          } else {
+            this.logger.warn('Donor email missing; could not send receipt email.');
+          }
+        } catch (emailErr) {
+          // Log but don't fail the whole verification in case email fails
+          this.logger.error('Error sending receipt email', emailErr);
+        }
+        // --- END NEW ---
         res.status(200).send({
           statusCode: '200',
           message: 'Your Paystack transaction has been verified. Thank you!',
@@ -765,4 +811,207 @@ export class PublicService {
       });
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+   * Send a receipt email to donor after Paystack verification.
+   * Uses SMTP settings from env (falls back to provided constants).
+   */
+  private async sendPaystackReceiptEmail(params: {
+    toEmail: string;
+    toName?: string;
+    projectId?: number;
+    reference: string;
+    amount: number; // amount in USD (for display)
+    tranDate: string; // already formatted date string
+    projectName?: string;
+  }) {
+    // 1) Build transporter from env (use Ethereal for testing)
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST || 'smtp.ethereal.email',
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    // 2) Compute fee & net amount (3.8% fee)
+    // We do the arithmetic carefully:
+    // fee = amount * 0.038, rounded to 2 decimals
+    const rawAmount = Number(params.amount);
+    const feeRaw = rawAmount * 0.038; // precise raw
+    const fee = Math.round(feeRaw * 100) / 100; // round to cents
+    const net = Math.round((rawAmount - fee) * 100) / 100;
+
+    // 3) Create HTML email (simple, safe)
+    // const html = `
+    //   <div style="font-family: Arial, Helvetica, sans-serif; line-height:1.4; color:#222;">
+    //     <h2>Thank you for your donation${params.toName ? `, ${params.toName}` : ''}!</h2>
+    //     <p>We received your donation. Below are the details:</p>
+
+    //     <table cellpadding="6" cellspacing="0" style="border-collapse:collapse; width:100%; max-width:600px;">
+    //       <tr>
+    //         <td style="border-top:1px solid #eee;"><strong>Transaction reference</strong></td>
+    //         <td style="border-top:1px solid #eee;">${params.reference}</td>
+    //       </tr>
+    //       <tr>
+    //         <td><strong>Project ID</strong></td>
+    //         <td>${params.projectId ?? 'N/A'}</td>
+    //       </tr>
+    //       <tr>
+    //         <td><strong>Date</strong></td>
+    //         <td>${params.tranDate}</td>
+    //       </tr>
+    //       <tr>
+    //         <td><strong>Gross amount</strong></td>
+    //         <td>$${rawAmount.toFixed(2)}</td>
+    //       </tr>
+    //       <tr>
+    //         <td><strong>Paystack fee (3.8%)</strong></td>
+    //         <td>$${fee.toFixed(2)}</td>
+    //       </tr>
+    //       <tr>
+    //         <td><strong>Net amount received</strong></td>
+    //         <td><strong>$${net.toFixed(2)}</strong></td>
+    //       </tr>
+    //     </table>
+
+    //     <p style="margin-top:16px;">
+    //       If you need an official receipt or have questions, reply to this email.
+    //     </p>
+
+    //     <p style="margin-top:16px;">
+    //       Cheers,<br/>
+    //       The Sokaab Team
+    //     </p>
+    //   </div>
+    // `;
+    const html = `
+  <div style="font-family: Roboto, sans-serif; background-color:#f9fafb;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="max-width:700px; margin:auto; background:#fff; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); overflow:hidden;">
+      
+      <!-- Header -->
+      <tr>
+        <td style="background:linear-gradient(135deg, #00CC99, #00CC99); padding:24px; color:#fff;">
+          <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="font-size:22px; font-weight:600; color:white">Sokaab Donation Receipt</td>
+             
+            </tr>
+          </table>
+        </td>
+      </tr>
+
+      <!-- Body -->
+      <tr>
+        <td style="padding:32px;">
+          <h2 style="margin:0 0 16px; font-size:20px; font-weight:600; color:#111;">
+            Thank you, ${params.toName ?? "Donor"}!
+          </h2>
+          <p style="margin:0 0 24px; font-size:15px; color:#444; line-height:1.6;">
+            This receipt confirms your generous donation to 
+            <strong style="color:#2C3E50;">${params.projectName ?? `Project ${params.projectId ?? ''}`}</strong>.  
+            We are truly grateful for your support.
+          </p>
+
+          <!-- Donor Details -->
+          <h3 style="margin:24px 0 8px; font-size:16px; color:#2C3E50; border-bottom:2px solid #e5e7eb; padding-bottom:4px;">Donor Details</h3>
+          <p style="margin:4px 0; font-size:14px; color:#333;">
+            <strong>Name:</strong> ${params.toName ?? "N/A"}<br/>
+            <strong>Email:</strong> ${params.toEmail}
+          </p>
+
+          <!-- Donation Details -->
+          <h3 style="margin:32px 0 8px; font-size:16px; color:#2C3E50; border-bottom:2px solid #e5e7eb; padding-bottom:4px;">Donation Details</h3>
+          <table cellpadding="10" cellspacing="0" width="100%" style="border-collapse:collapse; font-size:14px; margin-bottom:24px;">
+            <tr style="background:#f3f4f6;">
+              <td style="font-weight:600; width:200px;">Transaction Reference</td>
+              <td>${params.reference}</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Project Id</td>
+              <td>${params.projectId ?? '#'}</td>    
+                 
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Project Name</td>
+              <td>${params.projectName ?? 'Sokaab Project'}</td>    
+                 
+            </tr>
+            <tr style="background:#f3f4f6;">
+              <td style="font-weight:600;">Date</td>
+              <td>${params.tranDate}</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Gross Amount</td>
+              <td>$${rawAmount.toFixed(2)}</td>
+            </tr>
+            <tr style="background:#f3f4f6;">
+              <td style="font-weight:600;">Paystack Fee (3.8%)</td>
+              <td>-$${fee.toFixed(2)}</td>
+            </tr>
+            <tr>
+              <td style="font-weight:600;">Net Amount Received</td>
+              <td><strong style="color:#16a34a;">$${net.toFixed(2)}</strong></td>
+            </tr>
+          </table>
+
+          <p style="font-size:14px; color:#444; line-height:1.6;">
+            If you need further assistance, reply directly to this email.
+          </p>
+
+          <p style="margin-top:32px; font-size:14px; color:#444;">
+            With gratitude,<br/>
+            <strong>The Sokaab Team</strong>
+          </p>
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td style="background:#00CC99; padding:16px; text-align:center; font-size:12px; color:#2C3E50;">
+          © ${new Date().getFullYear()} Sokaab. All Rights Reserved.<br/>
+          Building hope, one project at a time.
+        </td>
+      </tr>
+    </table>
+  </div>
+`;
+
+
+    // 4) Prepare mail options
+    const mailOptions = {
+      from: `"Sokaab Support" <${process.env.SMTP_USER}>`,
+      to: params.toEmail,
+      subject: `Thank you for your donation`,
+      html,
+    };
+
+    // 5) Send and return result (also log preview URL for Ethereal)
+    const info = await transporter.sendMail(mailOptions);
+
+    // nodemailer provides getTestMessageUrl for Ethereal
+    const previewUrl = (nodemailer as any).getTestMessageUrl(info) ?? null;
+    this.logger.log(`Receipt email sent to ${params.toEmail}; messageId=${info.messageId}`);
+    if (previewUrl) {
+      this.logger.log(`Preview the email here: ${previewUrl}`);
+    }
+    return { info, previewUrl };
+  }
+
+
+
+  
 }

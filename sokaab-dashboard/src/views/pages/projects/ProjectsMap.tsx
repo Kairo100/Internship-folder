@@ -161,7 +161,7 @@ const getProjectStatus = (project: IProject) => {
             ) : null}
           </Marker>
         ) : null
-      ))}
+      ))} 
     </GoogleMap>
   );
 };
